@@ -1,15 +1,21 @@
 {% extends 'bootstrap/base.html' %}
 
-{% block title %}Coffee and Wifi{% endblock %}
+{% block title %}SEPOMEX API{% endblock %}
 {% block content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 <div class="jumbotron text-center" style="padding-bottom: 300px">
     <div class="container">
-        <h1 class="display-4">☕️ Coffee & Wifi 💻</h1>
-        <p class="lead">Want to work in a cafe but need power and wifi?</p>
+        <h1 class="display-4">Consulta SEPOMEX</h1>
+        <p class="lead">SEPOMEX API</p>
         <hr class="my-4">
-        <p>You've found the right place! Checkout my collection of cafes with data on power socket availability, wifi speed and coffee quality.</p>
-        <a class="btn btn-warning btn-lg" href="{{ url_for('cafes') }}" role="button">Show Me!</a>
+        <a class="btn btn-success btn-lg" style="margin: 5px" href="{{ url_for('name_search') }}" role="button">Búsqueda de colonia por nombre</a>
+        <a class="btn btn-success btn-lg" style="margin: 5px" href="{{ url_for('name_search') }}" role="button">Búsqueda de municipio por nombre</a>
+        <a class="btn btn-success btn-lg" style="margin: 5px" href="{{ url_for('name_search') }}" role="button">Búsqueda de estado por nombre</a>
+        <hr class="my-4">
+        <a class="btn btn-warning btn-lg" style="margin: 5px" href="{{ url_for('cp_search') }}" role="button">Búsqueda de colonias por CP</a>
+        <hr class="my-4">
+        <a class="btn btn-warning btn-lg" style="margin: 5px" href="{{ url_for('add') }}" role="button">Adición de nuevo registro</a>
+
     </div>
 
 </div>

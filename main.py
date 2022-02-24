@@ -4,10 +4,11 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 # Importación de lista con el nombre de cada sheet del archivo excel y generador de api_key
 from forms import estados, generate_api_key
+import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///SEPOMEX.db'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] =  os.environ.get('DATABASE_URL', 'sqlite:///SEPOMEX.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 Bootstrap(app)
@@ -99,7 +100,7 @@ def gen_api_key():
     api_key = API_KEY(api_key=password)
     db.session.add(api_key)
     db.session.commit()
-    return f'Tu API KEY es {password}, guárdala en un lugar seguro'
+    return render_template('API_key.html', api_key=password)
 
 @app.route("/search_cp")
 def search_cp():
@@ -185,4 +186,4 @@ def add_location():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(host='0.0.0.0', port=5000)

@@ -1,0 +1,16 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}SEPOMEX API{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<div class="jumbotron text-center" style="padding-bottom: 300px">
+    <div class="container">
+        <h1 class="display-4">Consulta SEPOMEX</h1>
+        <p class="lead">SEPOMEX API KEY</p>
+        <hr class="my-4">
+        <p> Tu API KEY es   {{ api_key }}   guárdala en un lugar seguro'</p>
+
+    </div>
+
+</div>
+{% endblock %}

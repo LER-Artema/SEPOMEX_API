@@ -59,13 +59,13 @@ class Municipio(db.Model):
 # ---------------------------------------- Creación de la base de Datos
 # Loop que itera en la lista de nombres para generar un Dataframe por cada sheet de excel
 
-for estado in estados:
-    sheets = pd.read_excel('SEPOMEX_DATA.xls', sheet_name=estado)
-
-# Depuración de datos
-
-    sheets.drop(columns=['c_CP', 'd_ciudad', 'id_asenta_cpcons', 'd_CP', 'c_cve_ciudad'], axis=1, inplace=True)
-    sheets.dropna(inplace=True)
+# for estado in estados:
+#     sheets = pd.read_excel('SEPOMEX_DATA.xls', sheet_name=estado)
+#
+# # Depuración de datos
+#
+#     sheets.drop(columns=['c_CP', 'd_ciudad', 'id_asenta_cpcons', 'd_CP', 'c_cve_ciudad'], axis=1, inplace=True)
+#     sheets.dropna(inplace=True)
 
 # Se itera en cada fila del DF y genera una lista con los valores de cada fila
 #     for i in sheets.values:

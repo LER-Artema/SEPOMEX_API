@@ -55,7 +55,7 @@ class Municipio(db.Model):
     def to_dict(self):
         return {column.name: getattr(self, column.name) for column in self.__table__.columns}
 
-db.create_all()
+# db.create_all()
 # ---------------------------------------- Creación de la base de Datos
 # Loop que itera en la lista de nombres para generar un Dataframe por cada sheet de excel
 

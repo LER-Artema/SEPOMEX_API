@@ -8,7 +8,7 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] =  os.environ.get('DATABASE_URL', 'sqlite:///SEPOMEX.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///SEPOMEX.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 Bootstrap(app)
@@ -59,35 +59,35 @@ db.create_all()
 # ---------------------------------------- Creación de la base de Datos
 # Loop que itera en la lista de nombres para generar un Dataframe por cada sheet de excel
 
-# for estado in estados:
-#     sheets = pd.read_excel('SEPOMEX_DATA.xls', sheet_name=estado)
+for estado in estados:
+    sheets = pd.read_excel('SEPOMEX_DATA.xls', sheet_name=estado)
 
-#     Depuración de datos
+# Depuración de datos
 
-#     sheets.drop(columns=['c_CP', 'd_ciudad', 'id_asenta_cpcons', 'd_CP', 'c_cve_ciudad'], axis=1, inplace=True)
-#     sheets.dropna(inplace=True)
+    sheets.drop(columns=['c_CP', 'd_ciudad', 'id_asenta_cpcons', 'd_CP', 'c_cve_ciudad'], axis=1, inplace=True)
+    sheets.dropna(inplace=True)
 
-#     Se itera en cada fila del DF y genera una lista con los valores de cada fila
-#     for i in sheets.values:
+# Se itera en cada fila del DF y genera una lista con los valores de cada fila
+    for i in sheets.values:
 
-#
-#         estado = Estado(id_estado=i[5],
-#                         nombre=i[4])
-#         municipio = Municipio(id_mncp=i[8],
-#                               nombre=i[3],
-#                               id_estado=i[5])
-#
-#         colonia = Colonia(cp=i[0],
-#                           nombre=i[1],
-#                           tipo_de_asentamiento=i[2],
-#                           id_de_asentamiento=i[7],
-#                           id_estado=i[5])
-#
-#         db.session.add(estado)
-#         db.session.add(municipio)
-#         db.session.add(colonia)
-#     db.session.commit()
-#
+
+        estado = Estado(id_estado=i[5],
+                        nombre=i[4])
+        municipio = Municipio(id_mncp=i[8],
+                              nombre=i[3],
+                              id_estado=i[5])
+
+        colonia = Colonia(cp=i[0],
+                          nombre=i[1],
+                          tipo_de_asentamiento=i[2],
+                          id_de_asentamiento=i[7],
+                          id_estado=i[5])
+
+        db.session.add(estado)
+        db.session.add(municipio)
+        db.session.add(colonia)
+    db.session.commit()
+
 # ------------------------------------------------------------
 @app.route("/")
 def home():
@@ -103,14 +103,17 @@ def gen_api_key():
     return render_template('API_key.html', api_key=password)
 
 @app.route("/search_cp")
+# Ruta para buscar por codigo postal
 def search_cp():
     api_key = request.args.get('api_key')
     api_key_ = db.session.query(API_KEY).filter_by(api_key=api_key).first()
+    #  Si la API KEY se encuentra en la base de datos procede
     if api_key_:
 
         query_location = request.args.get("cp")
         colonias = db.session.query(Colonia).filter_by(cp=query_location)
         if colonias:
+            # Jsonfy para devolver formato JSON
             return jsonify(colonias=[colonia.to_dict() for colonia in colonias])
         else:
             return jsonify(error={'El código postal ingresado no se encuentra en la base de datos'}), 404
@@ -164,6 +167,7 @@ def add_location():
     api_key = request.args.get('api_key')
     api_key = db.session.query(API_KEY).filter_by(api_key=api_key).firts()
     if api_key:
+        # Agrega nuevas tablas con los argumentos del request
         estado = Estado(id_estado=request.form.get('id_estado'),
                         nombre=request.form.get('nombre_estado'))
         municipio = Municipio(id_mncp=request.form.get('id_mncp'),

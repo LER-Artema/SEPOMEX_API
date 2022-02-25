@@ -10,5 +10,3 @@ Devuelve la información en formato JSON.
 
 La base de datos cuenta con 4 tablas: API_KEYS, Colonia, Municipio, Estado, las tres últimas comparten el ID del estado al que pertenecen.
 
-El despliegue en Heroku no funcionó, al parecer mis cuentas tienen un error y estan congeladas, pero el framework está acondicionado para 
-poder desplegar la aplicación en Heroku con el Procfile y todos los requerimeintos.

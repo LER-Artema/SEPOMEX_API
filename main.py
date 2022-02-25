@@ -68,25 +68,25 @@ for estado in estados:
     sheets.dropna(inplace=True)
 
 # Se itera en cada fila del DF y genera una lista con los valores de cada fila
-    for i in sheets.values:
-
-
-        estado = Estado(id_estado=i[5],
-                        nombre=i[4])
-        municipio = Municipio(id_mncp=i[8],
-                              nombre=i[3],
-                              id_estado=i[5])
-
-        colonia = Colonia(cp=i[0],
-                          nombre=i[1],
-                          tipo_de_asentamiento=i[2],
-                          id_de_asentamiento=i[7],
-                          id_estado=i[5])
-
-        db.session.add(estado)
-        db.session.add(municipio)
-        db.session.add(colonia)
-    db.session.commit()
+#     for i in sheets.values:
+#
+#
+#         estado = Estado(id_estado=i[5],
+#                         nombre=i[4])
+#         municipio = Municipio(id_mncp=i[8],
+#                               nombre=i[3],
+#                               id_estado=i[5])
+#
+#         colonia = Colonia(cp=i[0],
+#                           nombre=i[1],
+#                           tipo_de_asentamiento=i[2],
+#                           id_de_asentamiento=i[7],
+#                           id_estado=i[5])
+#
+#         db.session.add(estado)
+#         db.session.add(municipio)
+#         db.session.add(colonia)
+#     db.session.commit()
 
 # ------------------------------------------------------------
 @app.route("/")
